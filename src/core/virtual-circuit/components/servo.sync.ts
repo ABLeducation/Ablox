@@ -16,6 +16,7 @@ import {
 } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { positionComponent } from '../svg-position';
+import { ResetExistComponentEl } from '../svg-interfaces';
 
 export const servoReset: ResetComponent = (servoEl) => {
   if (servoEl.data('component-type') === ArduinoComponentType.SERVO) {
@@ -42,6 +43,13 @@ export const servoUpdate: SyncComponent = (state, frame, draw) => {
 
   setText(servoEl, servoState.degree);
 };
+
+export const servoResetComponentEl: ResetExistComponentEl = (
+  state,
+  frame,
+  draw,
+  showArduino
+) => {};
 
 export const servoCreate: CreateComponent = (
   state,
@@ -77,6 +85,12 @@ export const servoCreate: CreateComponent = (
     if (!wiresExist) {
       createWires(servoEl, pin, arduino as Svg, draw, id);
     }
+
+    (servoEl as any).draggable().on('dragmove', () => {
+      if (showArduino) {
+        updateWires(servoEl, draw, arduino as Svg);
+      }
+    });
 
     positionComponent(servoEl, arduino, draw, pin, 'DATA_BOX');
     updateWires(servoEl, draw, arduino as Svg);
