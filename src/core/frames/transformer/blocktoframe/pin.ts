@@ -1,13 +1,13 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
 import {
   PinState,
   PIN_TYPE,
   pinPictureToWork as pinPictureToWord,
-} from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { PinSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
+} from "../../arduino-components.state";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { PinSensor } from "../../../blockly/dto/sensors.type";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const setupReadPin: BlockToFrameTransformer = (
   blocks,
@@ -16,11 +16,11 @@ export const setupReadPin: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const pictureType = findFieldValue(block, 'TYPE');
+  const pictureType = findFieldValue(block, "TYPE");
   const [pin] = block.pins;
   const sensorData = JSON.parse(block.metaData) as PinSensor[];
   const pinType =
-    block.blockName === 'digital_read_setup'
+    block.blockName === "digital_read_setup"
       ? PIN_TYPE.DIGITAL_INPUT
       : PIN_TYPE.ANALOG_INPUT;
 

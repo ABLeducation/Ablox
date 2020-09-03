@@ -1,18 +1,18 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { ArduinoFrame, Variable, Timeline, Color } from '../../arduino.frame';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { BlockData } from '../../../blockly/dto/block.type';
+import { ArduinoFrame, Variable, Timeline, Color } from "../../arduino.frame";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { BlockData } from "../../../blockly/dto/block.type";
 import {
   VariableTypes,
   VariableData,
-} from '../../../blockly/dto/variable.type';
-import _ from 'lodash';
+} from "../../../blockly/dto/variable.type";
+import _ from "lodash";
 import {
   arduinoFrameByVariable,
   valueToString,
   getDefaultValueList,
-} from '../frame-transformer.helpers';
-import { getInputValue } from '../block-to-value.factories';
+} from "../frame-transformer.helpers";
+import { getInputValue } from "../get-values";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 const createListState = (
   type: VariableTypes,
@@ -29,7 +29,7 @@ const createListState = (
       block.blockName,
       timeline,
       newVariable,
-      createExplanation(newVariable, +findFieldValue(block, 'SIZE')),
+      createExplanation(newVariable, +findFieldValue(block, "SIZE")),
       previousState
     ),
   ];
@@ -44,7 +44,7 @@ const setItemInList = (
   previousState: ArduinoFrame = undefined
 ): ArduinoFrame[] => {
   const variableName = variables.find(
-    (v) => v.id === findFieldValue(block, 'VAR')
+    (v) => v.id === findFieldValue(block, "VAR")
   ).name;
 
   const currentValue = _.cloneDeep([
@@ -59,7 +59,7 @@ const setItemInList = (
     block,
     variables,
     timeline,
-    'POSITION',
+    "POSITION",
     1,
     previousState
   );
@@ -74,7 +74,7 @@ const setItemInList = (
     block,
     variables,
     timeline,
-    'VALUE',
+    "VALUE",
     getDefaultValueList(type),
     previousState
   );
@@ -90,8 +90,8 @@ const setItemInList = (
   const stringValue = valueToString(
     value,
     previousState.variables[variableName].type.replace(
-      'List ',
-      ''
+      "List ",
+      ""
     ) as VariableTypes
   );
 
@@ -120,15 +120,15 @@ const createExplanation = (variable: Variable, size: number) => {
 const typeToHumanWord = (type: VariableTypes) => {
   switch (type) {
     case VariableTypes.LIST_BOOLEAN:
-      return 'boolean list';
+      return "boolean list";
     case VariableTypes.LIST_NUMBER:
-      return 'number list';
+      return "number list";
     case VariableTypes.LIST_STRING:
-      return 'text list';
+      return "text list";
     case VariableTypes.LIST_COLOUR:
-      return 'color list';
+      return "color list";
     default:
-      return 'list';
+      return "list";
   }
 };
 
@@ -137,8 +137,8 @@ const createVariable = (
   variables: VariableData[],
   type: VariableTypes
 ): Variable => {
-  const variableId = findFieldValue(block, 'VAR');
-  const size = +findFieldValue(block, 'SIZE');
+  const variableId = findFieldValue(block, "VAR");
+  const size = +findFieldValue(block, "SIZE");
   const variableFound = variables.find((v) => v.id === variableId);
   return {
     id: variableId,

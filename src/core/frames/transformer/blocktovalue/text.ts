@@ -1,9 +1,10 @@
-import { ValueGenerator, getInputValue } from '../block-to-value.factories';
+import { getInputValue } from "../get-values";
+import { ValueGenerator } from "../block-to-value.interface";
 import {
   findFieldValue,
   findBlockById,
-} from '../../../blockly/helpers/block-data.helper';
-import _ from 'lodash';
+} from "../../../blockly/helpers/block-data.helper";
+import _ from "lodash";
 
 export const text: ValueGenerator = (
   blocks,
@@ -12,7 +13,7 @@ export const text: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return findFieldValue(block, 'TEXT');
+  return findFieldValue(block, "TEXT");
 };
 
 export const textJoin: ValueGenerator = (
@@ -23,7 +24,7 @@ export const textJoin: ValueGenerator = (
   previousState
 ) => {
   return block.inputBlocks.reduce((prev, next) => {
-    if (!next.blockId || !next.name.includes('ADD')) {
+    if (!next.blockId || !next.name.includes("ADD")) {
       return prev;
     }
 
@@ -35,11 +36,11 @@ export const textJoin: ValueGenerator = (
         variables,
         timeline,
         next.name,
-        '',
+        "",
         previousState
       )
     );
-  }, '');
+  }, "");
 };
 
 export const textLength: ValueGenerator = (
@@ -54,8 +55,8 @@ export const textLength: ValueGenerator = (
     block,
     variables,
     timeline,
-    'VALUE',
-    '',
+    "VALUE",
+    "",
     previousState
   ).length;
 };
@@ -67,19 +68,19 @@ export const textParse: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const delimiter = findFieldValue(block, 'DELIMITER');
+  const delimiter = findFieldValue(block, "DELIMITER");
   let position = +getInputValue(
     blocks,
     block,
     variables,
     timeline,
-    'POSITION',
+    "POSITION",
     1,
     previousState
   );
 
   if (position < 0) {
-    return '';
+    return "";
   }
   position = position == 0 ? 1 : position;
 
@@ -88,18 +89,18 @@ export const textParse: ValueGenerator = (
     block,
     variables,
     timeline,
-    'VALUE',
-    '',
+    "VALUE",
+    "",
     previousState
   ) as string;
 
   if (!stringToParse.includes(delimiter)) {
-    return '';
+    return "";
   }
 
   const parts = stringToParse.split(delimiter);
 
-  return parts.length < position ? '' : parts[position - 1];
+  return parts.length < position ? "" : parts[position - 1];
 };
 
 export const textIsEmpty: ValueGenerator = (
@@ -114,8 +115,8 @@ export const textIsEmpty: ValueGenerator = (
     block,
     variables,
     timeline,
-    'VALUE',
-    '',
+    "VALUE",
+    "",
     previousState
   );
 
@@ -129,17 +130,17 @@ export const numberToText: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const precision = +findFieldValue(block, 'PRECISION');
+  const precision = +findFieldValue(block, "PRECISION");
   const numberAttached = getInputValue(
     blocks,
     block,
     variables,
     timeline,
-    'NUMBER',
-    '',
+    "NUMBER",
+    "",
     previousState
   );
-  if (numberAttached === '') {
+  if (numberAttached === "") {
     const number = 0;
     return number.toFixed(precision);
   }
@@ -159,20 +160,20 @@ export const changeCase: ValueGenerator = (
     block,
     variables,
     timeline,
-    'TEXT',
-    '',
+    "TEXT",
+    "",
     previousState
   ) as string;
 
-  const type = findFieldValue(block, 'CASE');
+  const type = findFieldValue(block, "CASE");
 
   switch (type) {
-    case 'UPPERCASE':
+    case "UPPERCASE":
       return value.toUpperCase();
-    case 'LOWERCASE':
+    case "LOWERCASE":
       return value.toLowerCase();
     default:
-      return '';
+      return "";
   }
 
   return _.isEmpty(value);

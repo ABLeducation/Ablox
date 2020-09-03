@@ -1,8 +1,8 @@
-import { ValueGenerator } from '../block-to-value.factories';
-import { findComponent } from '../frame-transformer.helpers';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { ButtonState } from '../../arduino-components.state';
+import { ValueGenerator } from "../block-to-value.interface";
+import { findComponent } from "../frame-transformer.helpers";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { ButtonState } from "../../arduino-components.state";
 
 export const isButtonPressed: ValueGenerator = (
   blocks,
@@ -14,6 +14,6 @@ export const isButtonPressed: ValueGenerator = (
   return findComponent<ButtonState>(
     previousState,
     ArduinoComponentType.BUTTON,
-    findFieldValue(block, 'PIN')
+    findFieldValue(block, "PIN")
   ).isPressed;
 };

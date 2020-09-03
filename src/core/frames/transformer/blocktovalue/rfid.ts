@@ -1,7 +1,7 @@
-import { ValueGenerator } from '../block-to-value.factories';
-import { findComponent } from '../frame-transformer.helpers';
-import { RfidState } from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
+import { ValueGenerator } from "../block-to-value.interface";
+import { findComponent } from "../frame-transformer.helpers";
+import { RfidState } from "../../arduino-components.state";
+import { ArduinoComponentType } from "../../arduino.frame";
 
 export const rfidScannedCard: ValueGenerator = (
   blocks,

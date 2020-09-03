@@ -1,7 +1,7 @@
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { ValueGenerator } from '../block-to-value.factories';
-import { getDefaultValue } from '../frame-transformer.helpers';
-import _ from 'lodash';
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { ValueGenerator } from "../block-to-value.interface";
+import { getDefaultValue } from "../frame-transformer.helpers";
+import _ from "lodash";
 
 export const getVariable: ValueGenerator = (
   blocks,
@@ -10,7 +10,7 @@ export const getVariable: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const variableId = findFieldValue(block, 'VAR');
+  const variableId = findFieldValue(block, "VAR");
   const variable = variables.find((v) => v.id == variableId);
 
   return previousState &&

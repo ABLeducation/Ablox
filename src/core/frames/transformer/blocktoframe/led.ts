@@ -1,20 +1,19 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { PinState, PinPicture, PIN_TYPE } from '../../arduino-components.state';
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { ARDUINO_UNO_PINS } from "../../../blockly/selectBoard";
+import { PinState, PinPicture, PIN_TYPE } from "../../arduino-components.state";
 
-import _ from 'lodash';
-import { ArduinoComponentType, ArduinoFrame } from '../../arduino.frame';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
-import { getInputValue } from '../block-to-value.factories';
+import _ from "lodash";
+import { ArduinoComponentType, ArduinoFrame } from "../../arduino.frame";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { getInputValue } from "../get-values";
 
 export const analogWrite = (
   pinPicture: PinPicture,
   connectionValueName: string
 ) => {
   return (blocks, block, variables, timeline, previousState) => {
-    const pin = findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS;
-    const pinWord = pinPicture == PinPicture.LED ? 'led' : 'pin';
+    const pin = findFieldValue(block, "PIN") as ARDUINO_UNO_PINS;
+    const pinWord = pinPicture == PinPicture.LED ? "led" : "pin";
     const state = getInputValue(
       blocks,
       block,
@@ -35,7 +34,7 @@ export const analogWrite = (
     };
 
     const explanation = `Setting ${pinWord} ${pin}${
-      pinWord == 'led' ? ' to fade' : ''
+      pinWord == "led" ? " to fade" : ""
     } to ${state}.`;
 
     return [
@@ -53,9 +52,9 @@ export const analogWrite = (
 
 export const digitalWrite = (pinPicture: PinPicture) => {
   return (blocks, block, variables, timeline, previousState) => {
-    const pin = findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS;
-    const pinWord = pinPicture == PinPicture.LED ? 'led' : 'pin';
-    const state = findFieldValue(block, 'STATE') === 'ON' ? 1 : 0;
+    const pin = findFieldValue(block, "PIN") as ARDUINO_UNO_PINS;
+    const pinWord = pinPicture == PinPicture.LED ? "led" : "pin";
+    const state = findFieldValue(block, "STATE") === "ON" ? 1 : 0;
     const ledState: PinState = {
       pin,
       pins: [pin],
@@ -65,7 +64,7 @@ export const digitalWrite = (pinPicture: PinPicture) => {
       pinType: PIN_TYPE.DIGITAL_OUTPUT,
     };
 
-    const explanation = `Turn ${pinWord} ${pin} ${state === 1 ? 'on' : 'off'}.`;
+    const explanation = `Turn ${pinWord} ${pin} ${state === 1 ? "on" : "off"}.`;
 
     return [
       arduinoFrameByComponent(

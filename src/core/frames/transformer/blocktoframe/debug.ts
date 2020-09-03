@@ -1,5 +1,5 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { arduinoFrameByExplanation } from '../frame-transformer.helpers';
+import { arduinoFrameByExplanation } from "../frame-transformer.helpers";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const debugBlock: BlockToFrameTransformer = (
   blocks,
@@ -13,7 +13,7 @@ export const debugBlock: BlockToFrameTransformer = (
       block.id,
       block.blockName,
       timeline,
-      'Debug [will pause in Arduino Code.]',
+      "Debug [will pause in Arduino Code.]",
       preivousState
     ),
   ];

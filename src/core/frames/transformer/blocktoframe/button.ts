@@ -1,8 +1,8 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { ButtonState } from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { ButtonSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
+import { ButtonState } from "../../arduino-components.state";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { ButtonSensor } from "../../../blockly/dto/sensors.type";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const buttonSetup: BlockToFrameTransformer = (
   blocks,

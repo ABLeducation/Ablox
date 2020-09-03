@@ -1,14 +1,14 @@
-import { NeoPixelState } from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import _ from 'lodash';
+import { NeoPixelState } from "../../arduino-components.state";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import _ from "lodash";
 import {
   arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
-} from '../frame-transformer.helpers';
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { getInputValue } from '../block-to-value.factories';
+} from "../frame-transformer.helpers";
+import { getInputValue } from "../get-values";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const neoPixelSetup: BlockToFrameTransformer = (
   blocks,
@@ -17,7 +17,7 @@ export const neoPixelSetup: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const numberOfLeds = +findFieldValue(block, 'NUMBER_LEDS');
+  const numberOfLeds = +findFieldValue(block, "NUMBER_LEDS");
 
   const ledStripState: NeoPixelState = {
     pins: block.pins,
@@ -40,7 +40,7 @@ export const neoPixelSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ledStripState,
-      'Setting up led light strip.',
+      "Setting up led light strip.",
       previousState
     ),
   ];
@@ -62,7 +62,7 @@ export const setNeoPixelColor: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'COLOR',
+    "COLOR",
     { red: 0, green: 0, blue: 0 },
     previousState
   );
@@ -74,7 +74,7 @@ export const setNeoPixelColor: BlockToFrameTransformer = (
       block,
       variables,
       timeline,
-      'POSITION',
+      "POSITION",
       1,
       previousState
     )

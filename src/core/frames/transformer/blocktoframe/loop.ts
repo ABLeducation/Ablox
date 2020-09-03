@@ -1,14 +1,14 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { getInputValue } from '../block-to-value.factories';
-import _ from 'lodash';
+import { generateInputFrame } from "../generate-frame";
+import { getInputValue } from "../get-values";
+import _ from "lodash";
 import {
-  generateInputFrame,
   arduinoFrameByExplanation,
   arduinoFrameByVariable,
-} from '../frame-transformer.helpers';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { Variable } from '../../arduino.frame';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
+} from "../frame-transformer.helpers";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { Variable } from "../../arduino.frame";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const simpleLoop: BlockToFrameTransformer = (
   blocks,
@@ -18,7 +18,7 @@ export const simpleLoop: BlockToFrameTransformer = (
   previousState
 ) => {
   const times = Math.abs(
-    getInputValue(blocks, block, variables, timeline, 'TIMES', 1, previousState)
+    getInputValue(blocks, block, variables, timeline, "TIMES", 1, previousState)
   );
 
   return _.range(1, times + 1).reduce((prev, next) => {
@@ -40,7 +40,7 @@ export const simpleLoop: BlockToFrameTransformer = (
         blocks,
         variables,
         timeline,
-        'DO',
+        "DO",
         loopFrame
       ),
     ];
@@ -59,7 +59,7 @@ export const forLoop: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'FROM',
+    "FROM",
     1,
     previousState
   );
@@ -69,13 +69,13 @@ export const forLoop: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'TO',
+    "TO",
     1,
     previousState
   );
 
   const by = Math.abs(
-    getInputValue(blocks, block, variables, timeline, 'BY', 1, previousState)
+    getInputValue(blocks, block, variables, timeline, "BY", 1, previousState)
   );
 
   const multiplyBy = from > to ? -1 : 1;
@@ -84,7 +84,7 @@ export const forLoop: BlockToFrameTransformer = (
   return _.range(from, to + multiplyBy, by * multiplyBy)
     .map((i, counter, array) => {
       const variableData = variables.find(
-        (v) => v.id === findFieldValue(block, 'VAR')
+        (v) => v.id === findFieldValue(block, "VAR")
       );
 
       const newVariable: Variable = {
@@ -108,7 +108,7 @@ export const forLoop: BlockToFrameTransformer = (
           blocks,
           variables,
           timeline,
-          'DO',
+          "DO",
           loopFrame
         ),
       ];

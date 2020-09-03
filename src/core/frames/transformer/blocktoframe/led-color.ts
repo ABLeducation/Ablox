@@ -1,12 +1,12 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import {
   arduinoFrameByComponent,
   findComponent,
-} from '../frame-transformer.helpers';
-import { LedColorState } from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { getInputValue } from '../block-to-value.factories';
+} from "../frame-transformer.helpers";
+import { LedColorState } from "../../arduino-components.state";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { getInputValue } from "../get-values";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const ledColorSetup: BlockToFrameTransformer = (
   blocks,
@@ -15,8 +15,8 @@ export const ledColorSetup: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const [redPin, greenPin, bluePin] = findFieldValue(block, 'WIRE').split('-');
-  const pictureType = findFieldValue(block, 'PICTURE_TYPE');
+  const [redPin, greenPin, bluePin] = findFieldValue(block, "WIRE").split("-");
+  const pictureType = findFieldValue(block, "PICTURE_TYPE");
   const ledColorState: LedColorState = {
     type: ArduinoComponentType.LED_COLOR,
     pins: block.pins,
@@ -33,7 +33,7 @@ export const ledColorSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ledColorState,
-      'Setting up color led.',
+      "Setting up color led.",
       previousState
     ),
   ];
@@ -51,7 +51,7 @@ export const setLedColor: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'COLOUR',
+    "COLOUR",
     { red: 0, green: 0, blue: 0 },
     previousState
   );

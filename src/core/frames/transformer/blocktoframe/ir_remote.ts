@@ -1,9 +1,9 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { IRRemoteState } from '../../arduino-components.state';
-import { IRRemoteSensor } from '../../../blockly/dto/sensors.type';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
+import { IRRemoteState } from "../../arduino-components.state";
+import { IRRemoteSensor } from "../../../blockly/dto/sensors.type";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const irRemoteSetup: BlockToFrameTransformer = (
   blocks,
@@ -32,7 +32,7 @@ export const irRemoteSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       irRemoteState,
-      'Setting up ir remote.',
+      "Setting up ir remote.",
       previousState
     ),
   ];

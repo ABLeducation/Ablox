@@ -1,10 +1,10 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { ArduinoReceiveMessageState } from '../../arduino-components.state';
-import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { getInputValue } from '../block-to-value.factories';
-import _ from 'lodash';
+import { ArduinoReceiveMessageState } from "../../arduino-components.state";
+import { BluetoothSensor } from "../../../blockly/dto/sensors.type";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { getInputValue } from "../get-values";
+import _ from "lodash";
+import { BlockToFrameTransformer } from "../block-to-frame.interface";
 
 export const messageSetup: BlockToFrameTransformer = (
   blocks,
@@ -29,7 +29,7 @@ export const messageSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       messageComponent,
-      'Setting up Arduino messages.',
+      "Setting up Arduino messages.",
       previousState
     ),
   ];
@@ -47,8 +47,8 @@ export const arduinoSendMessage: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'MESSAGE',
-    '',
+    "MESSAGE",
+    "",
     previousState
   );
 
