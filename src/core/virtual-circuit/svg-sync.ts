@@ -55,6 +55,10 @@ import {
   analogSensorUpdate,
   analogSensorReset,
 } from "../../blocks/analogsensor/virtual-circuit";
+import {
+  resetThermistorSensor,
+  updateThermistorSensor,
+} from "../../blocks/thermistor/virtual-circuit";
 
 export interface SyncComponent {
   (
@@ -86,7 +90,7 @@ const resetComponent = {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: resetUltraSonicSensor,
   [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinReset,
   [ArduinoComponentType.DIGITAL_SENSOR]: resetDigitalSensor,
-  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorReset,
+  [ArduinoComponentType.THERMISTOR]: resetThermistorSensor,
 };
 
 const syncComponent = {
@@ -107,6 +111,7 @@ const syncComponent = {
   [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinSync,
   [ArduinoComponentType.DIGITAL_SENSOR]: updateDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorUpdate,
+  [ArduinoComponentType.THERMISTOR]: updateThermistorSensor,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {

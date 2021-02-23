@@ -14,6 +14,8 @@ import rfidSvgString from "../../blocks/rfid/rfid.svg";
 import servoSVGText from "../../blocks/servo/servo.svg";
 import tempSvgString from "../../blocks/temperature/temp-humidity.svg";
 import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg";
+import thermistorSvgString from "../../blocks/thermistor/thermistor.svg";
+
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
 import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getLedSvgString } from "../../blocks/led/svg-string";
@@ -49,4 +51,5 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LED]: getLedSvgString,
   [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorSvg,
+  [ArduinoComponentType.THERMISTOR]: () => thermistorSvgString,
 };

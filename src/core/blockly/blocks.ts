@@ -9,6 +9,7 @@ import "../../blocks/lcd_screen/blocks";
 import "../../blocks/led_matrix/blocks";
 import "../../blocks/rgbled/blocks";
 import "../../blocks/led/blocks";
+import "../../blocks/thermistor/blocks";
 import "../../blocks/neopixels/blocks";
 import "../../blocks/writepin/blocks";
 import "../../blocks/digitalsensor/blocks";

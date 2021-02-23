@@ -32,7 +32,7 @@ const pinToBreadboardHole = (pin: ARDUINO_PINS): string => {
 };
 
 const unoArduino: MicroController = {
-  analonPins: ["A5", "A4", "A3", "A2", "A1", "A0"],
+  analonPins: ["A0", "A1", "A2", "A3", "A4", "A5"],
   digitalPins: [
     "2",
     "3",

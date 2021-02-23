@@ -93,6 +93,11 @@ import {
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
 import type { Settings } from "../../firebase/model";
+import {
+  createThermistorWires,
+  positionThermistorSensor,
+  createThermistorSensorHook,
+} from "../../blocks/thermistor/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -200,6 +205,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createWiresUltraSonicSensor,
   [ArduinoComponentType.DIGITAL_SENSOR]: createWireDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: createWireAnalogSensors,
+  [ArduinoComponentType.THERMISTOR]: createThermistorWires,
 };
 
 const positionComponentHookFunc: {
@@ -222,6 +228,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: positionUltraSonicSensor,
   [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorPosition,
+  [ArduinoComponentType.THERMISTOR]: positionThermistorSensor,
 };
 
 const createComponentHookFunc: {
@@ -244,4 +251,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
   [ArduinoComponentType.DIGITAL_SENSOR]: createDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorCreate,
+  [ArduinoComponentType.THERMISTOR]: createThermistorSensorHook,
 };

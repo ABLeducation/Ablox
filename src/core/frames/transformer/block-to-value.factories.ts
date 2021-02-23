@@ -57,6 +57,7 @@ import {
 } from "../../../blocks/message/blocktovalue";
 import { ultraSonicSensorDistance } from "../../../blocks/ultrasonic_sensor/blocktovalue";
 import { getVariable } from "../../../blocks/variables/blocktovalue";
+import { thermistorTemp } from "../../../blocks/thermistor/blocktovalue";
 
 export interface ValueGenerator {
   (
@@ -135,6 +136,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
 
   temp_get_humidity: getHumidity,
   temp_get_temp: getTemp,
+
+  thermistor_read: thermistorTemp,
 };
 
 export const getInputValue = (
