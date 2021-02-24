@@ -1,0 +1,15 @@
+<svg id="RESISTOR" xmlns="http://www.w3.org/2000/svg" width="6.01" height="9.25" viewBox="0 0 6.01 9.25">
+  <g id="WIRE_2">
+    <line x1="3.01" y1="1" x2="3" y2="3" style="fill: none;stroke: #999;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
+  </g>
+  <g id="WIRE_1">
+    <line x1="3.01" y1="4.75" x2="3" y2="8.25" style="fill: none;stroke: #999;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+  </g>
+  <g id="base">
+    <rect x="3.33" y="3.83" width="4.33" height="6" transform="translate(-3.84 10.22) rotate(-89.88)" style="fill: #efd49e"/>
+  </g>
+  <line id="BAND_1" x1="0.75" y1="2.5" x2="0.75" y2="6.9" style="fill: none;stroke: #f16b00;stroke-linejoin: bevel;stroke-width: 0.5px"/>
+  <line id="BAND_2" x1="2.26" y1="2.5" x2="2.26" y2="6.9" style="fill: none;stroke: #ef0000;stroke-linejoin: bevel;stroke-width: 0.5px"/>
+  <line id="BAND_3" x1="3.76" y1="2.5" x2="3.76" y2="6.9" style="fill: none;stroke: #000;stroke-linejoin: bevel;stroke-width: 0.5px"/>
+  <line id="BAND_3-2" data-name="BAND_3" x1="5.26" y1="2.5" x2="5.26" y2="6.9" style="fill: none;stroke: #ffe600;stroke-linejoin: bevel;stroke-width: 0.5px"/>
+</svg>

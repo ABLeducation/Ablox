@@ -85,6 +85,48 @@ export const createPowerWire = (
   );
 };
 
+export const createStationaryWireOneUpFromPinToSideOfTheBoard = (
+  draw: Svg,
+  arduino: Svg,
+  pin: ARDUINO_PINS,
+  direction: "left" | "right",
+  board: MicroController,
+  wireType: "GND" | "POWER",
+  componentId: string,
+  componentBoxId: string
+) => {
+  const breadBoardLetter = wireType === "POWER" ? "W" : "X";
+
+  const onUpFromPinLetter = board.pinToBreadboardHole(pin).includes("E")
+    ? "B"
+    : "G";
+  const holeId = takeClosestBottomBreadboardHole(pin, direction, board);
+  const hole = findSvgElement(`pin${holeId}${breadBoardLetter}`, arduino);
+  const holeX = hole.cx() + arduino.x();
+  const holeY = hole.cy() + arduino.y();
+
+  const pinHoleId = board
+    .pinToBreadboardHole(pin)
+    .replace("pin", "")
+    .slice(0, -1);
+  console.log(pinHoleId, "pinHoleId");
+  const bHole = findSvgElement(`pin${pinHoleId}${onUpFromPinLetter}`, arduino);
+  const bHoleX = bHole.cx() + +arduino.x();
+  const bHoleY = bHole.cy() + +arduino.y();
+
+  const stationaryWire = draw
+    .line()
+    .plot(holeX, holeY, bHoleX, bHoleY)
+    .stroke({ width: 2, color: "#000", linecap: "round" });
+
+  stationaryWire.data("component-id", componentId);
+  stationaryWire.data("connection-id", componentBoxId);
+  stationaryWire.data("update-wire", false);
+  stationaryWire.data("hole-id", `pin${holeId}${breadBoardLetter}`);
+  stationaryWire.data("wire-type", wireType);
+  stationaryWire.data("type", "wire");
+};
+
 const createBottomBreadboardWire = (
   element: Element,
   pin: ARDUINO_PINS,

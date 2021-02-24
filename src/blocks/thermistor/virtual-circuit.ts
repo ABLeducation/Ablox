@@ -10,7 +10,7 @@ import type {
 
 import type { ThermistorState } from "./state";
 import type { Element, Svg } from "@svgdotjs/svg.js";
-import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small-rotated-right.svg";
+import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-tiny.svg";
 
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
@@ -18,6 +18,7 @@ import {
   createPowerWire,
   createGroundWire,
   findResistorBreadboardHoleXY,
+  createStationaryWireOneUpFromPinToSideOfTheBoard,
 } from "../../core/virtual-circuit/wire";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { MicroController } from "../../core/microcontroller/microcontroller";
@@ -29,7 +30,14 @@ export const positionThermistorSensor: PositionComponent<ThermistorState> = (
   draw,
   board
 ) => {
-  //todo consider labeling pins in picture
+  positionComponent(
+    thermistorEl,
+    arduinoEl,
+    draw,
+    state.pins[0],
+    "PIN_GND",
+    board
+  );
 };
 
 export const createThermistorSensorHook: CreateCompenentHook<ThermistorState> = (
@@ -52,6 +60,37 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
   id,
   board
 ) => {
+  createWire(
+    componentEl,
+    state.pins[0],
+    "PIN_GND",
+    arduionEl,
+    draw,
+    "#000",
+    "GND-CONNECTOR",
+    board
+  );
+
+  createStationaryWireOneUpFromPinToSideOfTheBoard(
+    draw,
+    arduionEl as Svg,
+    state.pins[0],
+    "right",
+    board,
+    "GND",
+    id,
+    "PIN_GND"
+  );
+
+  createPowerWire(
+    componentEl,
+    state.pins[0],
+    arduionEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
   createResistor(arduionEl, draw, state.pins[0], id, board);
 };
 
@@ -67,7 +106,7 @@ const createResistor = (
   (window as any).resistor = resistorEl;
 
   const { x, y } = findResistorBreadboardHoleXY(pin, arduino, draw, board);
-  resistorEl.cx(x + 3.7);
+  resistorEl.cx(x);
   resistorEl.y(y);
   console.log(resistorEl, "resistorEl");
 };
