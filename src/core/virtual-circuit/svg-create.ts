@@ -130,7 +130,10 @@ export default (
   // not exist
   const area = takeBoardArea();
 
-  componentEl = createComponentEl(draw, state, getSvgString(state));
+  componentEl = createComponentEl(draw, state, getSvgString(state)) as Element;
+  componentEl.on("dblclick", function () {
+    alert("function called");
+  });
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
   if (area) {

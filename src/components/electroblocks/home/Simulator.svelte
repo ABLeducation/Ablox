@@ -1,5 +1,6 @@
 <script>
   import Player from "./Player.svelte";
+  import SimOptions from "./SimOptions.svelte";
 
   import SimDebugger from "./SimDebugger.svelte";
   import { SVG } from "@svgdotjs/svg.js";
@@ -89,6 +90,7 @@
 </script>
 
 <div style="background-color: {$settings.backgroundColor}" id="container">
+  <SimOptions />
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
