@@ -8,6 +8,24 @@ export interface ArduinoFrameContainer {
   frames: ArduinoFrame[];
   settings: Settings;
   error: boolean;
+  visual?: Visual;
+}
+
+export interface VisualComponent {
+  x?: number;
+  y?: number;
+  color?: string;
+  holes?: number[];
+}
+
+export interface Visual {
+  viewbox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+  components: { [key: string]: VisualComponent };
 }
 
 export interface ArduinoFrame {

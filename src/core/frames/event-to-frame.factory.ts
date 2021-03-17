@@ -5,6 +5,7 @@ import {
   ArduinoComponentState,
   SENSOR_COMPONENTS,
   ArduinoFrameContainer,
+  Visual,
 } from "./arduino.frame";
 import { BlockType, BlockData } from "../blockly/dto/block.type";
 import { generateFrame } from "./transformer/block-to-frame.transformer";
@@ -19,12 +20,13 @@ import {
   convertToState,
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
-import type {  Settings } from "../../firebase/model";
-import { defaultSetting } from '../../firebase/model';
+import type { Settings } from "../../firebase/model";
+import { defaultSetting } from "../../firebase/model";
 
 export const eventToFrameFactory = (
   event: BlockEvent,
-  settings: Settings = defaultSetting): ArduinoFrameContainer => {
+  settings: Settings = defaultSetting
+): ArduinoFrameContainer => {
   const { blocks } = event;
 
   const preSetupBlockType = [
@@ -102,11 +104,19 @@ export const eventToFrameFactory = (
     frames
   );
 
+  const boardSelector = blocks.find((b) => b.blockName === "board_selector");
+  let visual: Visual = undefined;
+  if (boardSelector.metaData) {
+    visual = JSON.parse(boardSelector.metaData) as Visual;
+    console.log("LOOK VISUAL", visual);
+  }
+
   return {
     board: event.microController,
     frames: framesWithLoop,
     error: false,
     settings,
+    visual,
   };
 };
 

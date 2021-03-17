@@ -61,6 +61,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       blocklyEvent,
       microControllerType
     );
+    console.log(event, "event");
 
     const firstActionPass = [
       ...disableBlocksWithInvalidPinNumbers(event),
@@ -86,6 +87,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       blocklyEvent,
       microControllerType
     );
+    console.log(event2, "event2");
     // We need to run this again incase anything got enable that was disabled.
     const secondActionPass = [
       ...disableBlocksWithInvalidPinNumbers(event2),
@@ -125,6 +127,16 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ...updateLoopNumberInSensorSetupBlock(event2),
     ];
 
+    console.log(
+      transformEvent(
+        getAllBlocks(),
+        getAllVariables(),
+        blocklyEvent,
+        microControllerType
+      ).blocks,
+      "event3"
+    );
+
     thirdActionPass.forEach((a) => updater(a));
 
     // We need this because we save the sensor setup data to the
@@ -135,11 +147,11 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       blocklyEvent,
       microControllerType
     );
-
     const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
       currentFrameContainter = newFrameContainer;
+      console.log("frames", newFrameContainer);
       frameStore.set(currentFrameContainter);
     }
     codeStore.set({ code: getArduinoCode(), boardType: microControllerType });

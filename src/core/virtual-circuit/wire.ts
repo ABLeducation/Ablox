@@ -21,7 +21,17 @@ let breadboard: Breadboard = {
   order: [],
 };
 
-export const takeBoardArea = (): BreadBoardArea | null => {
+export const takeBoardArea = (holes: number[]): BreadBoardArea | null => {
+  if (holes.length > 0) {
+    const areaIndex = breadboard.areas.findIndex(
+      (a) => a.holes.sort().toString() == holes.sort().toString()
+    );
+    if (areaIndex > -1) {
+      breadboard.areas[areaIndex].taken = true;
+      return breadboard.areas[areaIndex];
+    }
+  }
+
   const areas = breadboard.areas;
   for (let orderIndex in breadboard.order) {
     const areaIndex = breadboard.order[orderIndex];

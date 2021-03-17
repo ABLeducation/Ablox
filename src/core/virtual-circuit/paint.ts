@@ -1,6 +1,7 @@
 import type { Svg, Element } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentType,
+  ArduinoFrame,
   ArduinoFrameContainer,
 } from "../frames/arduino.frame";
 import { getBoard } from "../microcontroller/selectBoard";
@@ -10,17 +11,19 @@ import createNewComponent from "./svg-create";
 import type { MicroController } from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
 import { registerHighlightEvents } from "./highlightevent";
+import { deleteComponent } from "../blockly/helpers/save-svg-data-board-selector";
+import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 
 export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
 
-  clearComponents(draw, arduino);
-
   const lastFrame = frameContainer.frames
     ? frameContainer.frames[frameContainer.frames.length - 1]
     : undefined;
+  clearComponents(draw, arduino, lastFrame);
+
   resetBreadBoardHoles(board);
   hideAllAnalogWires(draw);
   // TODO HIDE ANALOG PINS AND CREATE MAP FOR EACH BOARD PROFILE.
@@ -36,7 +39,8 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
           draw,
           arduino,
           board,
-          frameContainer.settings
+          frameContainer.settings,
+          frameContainer.visual
         );
       });
   }
@@ -85,12 +89,24 @@ const showWire = (arduino: Element, wire: string) => {
   }
 };
 
-const clearComponents = (draw: Svg, arduino: Element) => {
+const clearComponents = (
+  draw: Svg,
+  arduino: Element,
+  lastFrame?: ArduinoFrame
+) => {
   draw.find(".component").forEach((c: Element) => {
     const componentId = c.attr("id");
     // If there are not frames just delete all the components
     c.remove();
     draw.find(`[data-component-id=${componentId}]`).forEach((c) => c.remove());
+    // If the last frame doesn't exist delete the metadata for position
+    // If the component does not exist in the last frame delete metadata for positioning
+    if (
+      !lastFrame ||
+      !lastFrame.components.map(arduinoComponentStateToId).includes(componentId)
+    ) {
+      deleteComponent(componentId);
+    }
     return;
   });
 

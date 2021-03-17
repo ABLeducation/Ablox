@@ -3,6 +3,7 @@ import type { Element, Svg } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentState,
   ArduinoComponentType,
+  Visual,
 } from "../frames/arduino.frame";
 import { addDraggableEvent } from "./component-events.helpers";
 import {
@@ -111,32 +112,50 @@ import {
   createWireStepperMotor,
   positionStepperMotor,
 } from "../../blocks/steppermotor/virtual-circuit";
+import { saveComponentsHoles } from "../blockly/helpers/save-svg-data-board-selector";
 
 export default (
   state: ArduinoComponentState,
   draw: Svg,
   arduinoEl: Element,
   board: MicroController,
-  settings: Settings
+  settings: Settings,
+  visual?: Visual
 ): void => {
   const id = arduinoComponentStateToId(state);
-  let componentEl = draw.findOne("#" + id) as Element;
-
-  if (componentEl) {
-    return;
-  }
-
+  const visualComponent =
+    visual && visual.components ? visual.components[id] : undefined;
+  const usedHoles =
+    visualComponent && visualComponent.holes ? visualComponent.holes : [];
   // only take an area if the component does
   // not exist
-  const area = takeBoardArea();
+  const area = takeBoardArea(usedHoles);
 
-  componentEl = createComponentEl(draw, state, getSvgString(state)) as Element;
+  const componentEl = createComponentEl(
+    draw,
+    state,
+    getSvgString(state)
+  ) as Element;
   componentEl.on("dblclick", function () {
     alert("function called");
   });
+  // This so that we know the area that a component has taken up.
+  componentEl.data("holes", area.holes.sort().join("-"));
+  saveComponentsHoles(area.holes, id);
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  if (area) {
+
+  console.log(area, visual, "position");
+  if (
+    area &&
+    (!visual ||
+      !visual.components ||
+      !visual.components[id] ||
+      !visual.components[id].x ||
+      !visual.components[id].y)
+  ) {
+    console.log("positionComponentHookFunc x y");
+
     positionComponentHookFunc[state.type](
       state,
       componentEl,
@@ -145,6 +164,17 @@ export default (
       board,
       area
     );
+  } else if (
+    area &&
+    area.holes.sort().join("-") === visual.components[id].holes.sort().join("-")
+  ) {
+    console.log("positioned x y");
+    const { x, y } = visual.components[id];
+    componentEl.x(x);
+    componentEl.y(y);
+  }
+
+  if (area) {
     createWires[state.type](
       state,
       draw,
@@ -172,7 +202,7 @@ export interface PositionComponent<T extends ArduinoComponentState> {
     arduinoEl: Element,
     draw: Svg,
     board: MicroController,
-    area?: BreadBoardArea
+    area: BreadBoardArea
   ): void;
 }
 
@@ -195,7 +225,7 @@ export interface CreateWire<T extends ArduinoComponentState> {
     arduinoEl: Element,
     componentId: string,
     board: MicroController,
-    area?: BreadBoardArea
+    area: BreadBoardArea
   ): void;
 }
 

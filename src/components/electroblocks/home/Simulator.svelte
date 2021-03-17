@@ -14,6 +14,7 @@
   import { onMount, onDestroy } from "svelte";
   import { onErrorMessage } from "../../../help/alerts";
   import { wait } from "../../../helpers/wait";
+  import { saveViewBoxPosition } from "../../../core/blockly/helpers/save-svg-data-board-selector";
   let container;
   let frames = [];
   let currentFrame = undefined;
@@ -51,6 +52,21 @@
       .size(container.clientWidth - 10, container.clientHeight - 10)
       .viewbox(0, 0, container.clientWidth - 10, container.clientWidth - 10)
       .panZoom();
+
+    savePositionDataToBlock();
+
+    function savePositionDataToBlock() {
+      const { x, y, width, height } = draw.viewbox();
+      saveViewBoxPosition(x, y, width, height, draw.zoom());
+    }
+
+    draw.on("zoom", (e) => {
+      savePositionDataToBlock();
+    });
+
+    draw.on("panEnd", (e) => {
+      savePositionDataToBlock();
+    });
 
     unsubscribes.push(
       frameStore.subscribe((frameContainer) => {
