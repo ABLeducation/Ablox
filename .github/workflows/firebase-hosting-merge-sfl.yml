@@ -4,6 +4,9 @@
 name: Deploy to SFL Firebase Hosting on merge
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - sfl
 
 jobs:
   build_and_deploy:
