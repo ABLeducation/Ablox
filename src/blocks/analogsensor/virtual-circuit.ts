@@ -1,29 +1,28 @@
 import type {
   SyncComponent,
   ResetComponent,
-} from "../../core/virtual-circuit/svg-sync";
+} from '../../core/virtual-circuit/svg-sync';
 import type {
   PositionComponent,
   CreateWire,
   AfterComponentCreateHook,
-} from "../../core/virtual-circuit/svg-create";
-import type { Element, Svg, Text } from "@svgdotjs/svg.js";
-import _ from "lodash";
+} from '../../core/virtual-circuit/svg-create';
+import type { Element, Svg, Text } from '@svgdotjs/svg.js';
 
-import { AnalogSensorPicture, AnalogSensorState } from "./state";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { AnalogSensorPicture, AnalogSensorState } from './state';
+import { positionComponent } from '../../core/virtual-circuit/svg-position';
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire";
-import { colorBrightnessAdjuster } from "../../core/virtual-circuit/svg-helpers";
+} from '../../core/virtual-circuit/wire';
+import { colorBrightnessAdjuster } from '../../core/virtual-circuit/svg-helpers';
 
 export const analogSensorCreate: AfterComponentCreateHook<AnalogSensorState> = (
   state,
   analogSensorEl
 ) => {
-  analogSensorEl.findOne("#PIN_TEXT").node.innerHTML = state.pin.toString();
-  analogSensorEl.data("picture-type", state.pictureType);
+  analogSensorEl.findOne('#PIN_TEXT').node.innerHTML = state.pin.toString();
+  analogSensorEl.data('picture-type', state.pictureType);
 };
 
 export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
@@ -42,7 +41,7 @@ export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
       draw,
       holes[3],
       isDown,
-      "PIN_DATA"
+      'PIN_DATA'
     );
   } else {
     positionComponent(
@@ -51,7 +50,7 @@ export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
       draw,
       holes[3],
       isDown,
-      "PIN_GND"
+      'PIN_GND'
     );
   }
 
@@ -72,7 +71,7 @@ export const analogSensorUpdate: SyncComponent = (
   state: AnalogSensorState,
   analogSensorEl
 ) => {
-  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+  const textEl = analogSensorEl.findOne('#READING_VALUE') as Text;
   textEl.show();
 
   textEl.node.innerHTML = state.state.toString();
@@ -81,9 +80,9 @@ export const analogSensorUpdate: SyncComponent = (
 };
 
 export const analogSensorReset: ResetComponent = (componentEl: Element) => {
-  componentEl.findOne("#READING_VALUE").hide();
-  if (componentEl.findOne("#finger")) {
-    componentEl.findOne("#finger").hide();
+  componentEl.findOne('#READING_VALUE').hide();
+  if (componentEl.findOne('#finger')) {
+    componentEl.findOne('#finger').hide();
   }
 };
 
@@ -106,7 +105,7 @@ const createSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "PIN_DATA",
+    'PIN_DATA',
     board
   );
 
@@ -117,7 +116,7 @@ const createSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "ground"
+    'ground'
   );
 
   createGroundOrPowerWire(
@@ -127,7 +126,7 @@ const createSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "power"
+    'power'
   );
 };
 
@@ -150,7 +149,7 @@ const createSoilSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "PIN_DATA",
+    'PIN_DATA',
     board
   );
 
@@ -161,7 +160,7 @@ const createSoilSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "ground"
+    'ground'
   );
 
   createGroundOrPowerWire(
@@ -171,7 +170,7 @@ const createSoilSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "power"
+    'power'
   );
 };
 
@@ -194,7 +193,7 @@ const createPhotoSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "PIN_DATA",
+    'PIN_DATA',
     board
   );
 
@@ -205,7 +204,7 @@ const createPhotoSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "ground"
+    'ground'
   );
 
   createGroundOrPowerWire(
@@ -215,7 +214,7 @@ const createPhotoSensorWires: CreateWire<AnalogSensorState> = (
     draw,
     arduinoEl,
     id,
-    "power"
+    'power'
   );
 };
 
@@ -244,10 +243,10 @@ const updatePhotoSensor = (
   analogSensorEl: Element
 ) => {
   const percent = state.state / 1024;
-  const sunColor = analogSensorEl.findOne("#SUN_COLOR") as Element;
+  const sunColor = analogSensorEl.findOne('#SUN_COLOR') as Element;
   sunColor.children().forEach((c) => c.opacity(percent));
 
-  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+  const textEl = analogSensorEl.findOne('#READING_VALUE') as Text;
   textEl.cx(25);
 };
 
@@ -255,18 +254,18 @@ const updateSoilSensor = (
   state: AnalogSensorState,
   analogSensorEl: Element
 ) => {
-  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+  const textEl = analogSensorEl.findOne('#READING_VALUE') as Text;
   textEl.cx(27);
   const percentToLighten = (1024 - state.state) / 1024;
-  const color = colorBrightnessAdjuster("#684404", percentToLighten);
-  (analogSensorEl.findOne("#POT") as Element).fill(color);
+  const color = colorBrightnessAdjuster('#684404', percentToLighten);
+  (analogSensorEl.findOne('#POT') as Element).fill(color);
 };
 
 const updateGenericSensor = (
   state: AnalogSensorState,
   analogSensorEl: Element
 ) => {
-  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+  const textEl = analogSensorEl.findOne('#READING_VALUE') as Text;
 
   textEl.cx(40);
 };

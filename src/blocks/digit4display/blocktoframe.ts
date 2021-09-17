@@ -1,13 +1,13 @@
-import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { findFieldValue } from '../../core/blockly/helpers/block-data.helper';
+import { ArduinoComponentType } from '../../core/frames/arduino.frame';
+import { BlockToFrameTransformer } from '../../core/frames/transformer/block-to-frame.transformer';
 import {
   arduinoFrameByComponent,
   findComponent,
-} from "../../core/frames/transformer/frame-transformer.helpers";
-import { DigitilDisplayState } from "./state";
-import _ from "lodash";
-import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+} from '../../core/frames/transformer/frame-transformer.helpers';
+import { DigitilDisplayState } from './state';
+import { getInputValue } from '../../core/frames/transformer/block-to-value.factories';
+import { cloneDeep } from '../../help/clone';
 
 export const digit4DisplaySetup: BlockToFrameTransformer = (
   blocks,
@@ -19,9 +19,9 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
   const component: DigitilDisplayState = {
     type: ArduinoComponentType.DIGITAL_DISPLAY,
     pins: block.pins.sort(),
-    dioPin: findFieldValue(block, "DIO_PIN"),
-    clkPin: findFieldValue(block, "CLK_PIN"),
-    chars: "",
+    dioPin: findFieldValue(block, 'DIO_PIN'),
+    clkPin: findFieldValue(block, 'CLK_PIN'),
+    chars: '',
     colonOn: false,
   };
 
@@ -31,7 +31,7 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       component,
-      "Setting up digital display.",
+      'Setting up digital display.',
       previousState
     ),
   ];
@@ -44,20 +44,20 @@ export const digitalDisplaySet: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const component = _.cloneDeep(
+  const component = cloneDeep(
     findComponent(
       previousState,
       ArduinoComponentType.DIGITAL_DISPLAY
     ) as DigitilDisplayState
   );
-  component.colonOn = findFieldValue(block, "COLON") === "TRUE";
+  component.colonOn = findFieldValue(block, 'COLON') === 'TRUE';
   const chars = getInputValue(
     blocks,
     block,
     variables,
     timeline,
-    "TEXT",
-    "",
+    'TEXT',
+    '',
     previousState
   );
   component.chars = chars.slice(0, 4);
@@ -69,7 +69,7 @@ export const digitalDisplaySet: BlockToFrameTransformer = (
       timeline,
       component,
       `Setting Digital Display text to "${component.chars}" and colon is ${
-        component.colonOn ? "on" : "off"
+        component.colonOn ? 'on' : 'off'
       }.`,
       previousState
     ),

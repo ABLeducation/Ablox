@@ -1,23 +1,24 @@
-import _ from "lodash";
-import type { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from '../../core/blockly/dto/block.type';
 import {
   VariableData,
   VariableTypes,
-} from "../../core/blockly/dto/variable.type";
-import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+} from '../../core/blockly/dto/variable.type';
+import { findFieldValue } from '../../core/blockly/helpers/block-data.helper';
 import type {
   ArduinoFrame,
   Color,
   Timeline,
   Variable,
-} from "../../core/frames/arduino.frame";
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
-import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+} from '../../core/frames/arduino.frame';
+import type { BlockToFrameTransformer } from '../../core/frames/transformer/block-to-frame.transformer';
+import { getInputValue } from '../../core/frames/transformer/block-to-value.factories';
 import {
   arduinoFrameByVariable,
   getDefaultValueList,
   valueToString,
-} from "../../core/frames/transformer/frame-transformer.helpers";
+} from '../../core/frames/transformer/frame-transformer.helpers';
+import { cloneDeep } from '../../help/clone';
+import { range } from '../../help/number';
 
 const createListState = (
   type: VariableTypes,
@@ -34,7 +35,7 @@ const createListState = (
       block.blockName,
       timeline,
       newVariable,
-      createExplanation(newVariable, +findFieldValue(block, "SIZE")),
+      createExplanation(newVariable, +findFieldValue(block, 'SIZE')),
       previousState
     ),
   ];
@@ -49,10 +50,10 @@ const setItemInList = (
   previousState: ArduinoFrame = undefined
 ): ArduinoFrame[] => {
   const variableName = variables.find(
-    (v) => v.id === findFieldValue(block, "VAR")
+    (v) => v.id === findFieldValue(block, 'VAR')
   ).name;
 
-  const currentValue = _.cloneDeep([
+  const currentValue = cloneDeep([
     ...(previousState.variables[variableName].value as
       | string[]
       | Color[]
@@ -64,7 +65,7 @@ const setItemInList = (
     block,
     variables,
     timeline,
-    "POSITION",
+    'POSITION',
     1,
     previousState
   );
@@ -79,7 +80,7 @@ const setItemInList = (
     block,
     variables,
     timeline,
-    "VALUE",
+    'VALUE',
     getDefaultValueList(type),
     previousState
   );
@@ -87,7 +88,7 @@ const setItemInList = (
 
   const newVariable: Variable = {
     type: previousState.variables[variableName].type,
-    value: _.cloneDeep(currentValue),
+    value: cloneDeep(currentValue),
     name: previousState.variables[variableName].name,
     id: previousState.variables[variableName].id,
   };
@@ -95,8 +96,8 @@ const setItemInList = (
   const stringValue = valueToString(
     value,
     previousState.variables[variableName].type.replace(
-      "List ",
-      ""
+      'List ',
+      ''
     ) as VariableTypes
   );
 
@@ -125,15 +126,15 @@ const createExplanation = (variable: Variable, size: number) => {
 const typeToHumanWord = (type: VariableTypes) => {
   switch (type) {
     case VariableTypes.LIST_BOOLEAN:
-      return "boolean list";
+      return 'boolean list';
     case VariableTypes.LIST_NUMBER:
-      return "number list";
+      return 'number list';
     case VariableTypes.LIST_STRING:
-      return "text list";
+      return 'text list';
     case VariableTypes.LIST_COLOUR:
-      return "color list";
+      return 'color list';
     default:
-      return "list";
+      return 'list';
   }
 };
 
@@ -142,14 +143,14 @@ const createVariable = (
   variables: VariableData[],
   type: VariableTypes
 ): Variable => {
-  const variableId = findFieldValue(block, "VAR");
-  const size = +findFieldValue(block, "SIZE");
+  const variableId = findFieldValue(block, 'VAR');
+  const size = +findFieldValue(block, 'SIZE');
   const variableFound = variables.find((v) => v.id === variableId);
   return {
     id: variableId,
     type,
     name: variableFound.name,
-    value: _.range(0, size).map(() => null),
+    value: range(0, size).map(() => null),
   };
 };
 

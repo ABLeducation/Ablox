@@ -1,9 +1,13 @@
-import _ from "lodash";
-import type { BlockData } from "../../core/blockly/dto/block.type";
-import type { VariableData } from "../../core/blockly/dto/variable.type";
-import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import type { ArduinoFrame, Color, Timeline } from "../../core/frames/arduino.frame";
-import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+import type { BlockData } from '../../core/blockly/dto/block.type';
+import type { VariableData } from '../../core/blockly/dto/variable.type';
+import { findFieldValue } from '../../core/blockly/helpers/block-data.helper';
+import type {
+  ArduinoFrame,
+  Color,
+  Timeline,
+} from '../../core/frames/arduino.frame';
+import { getInputValue } from '../../core/frames/transformer/block-to-value.factories';
+import { cloneDeep } from '../../help/clone';
 
 export const getItemInList = (
   blocks: BlockData[],
@@ -13,10 +17,10 @@ export const getItemInList = (
   previousState: ArduinoFrame = undefined
 ) => {
   const variableName = variables.find(
-    (v) => v.id === findFieldValue(block, "VAR")
+    (v) => v.id === findFieldValue(block, 'VAR')
   ).name;
 
-  const currentValue = _.cloneDeep([
+  const currentValue = cloneDeep([
     ...(previousState.variables[variableName].value as
       | string[]
       | Color[]
@@ -28,7 +32,7 @@ export const getItemInList = (
     block,
     variables,
     timeline,
-    "POSITION",
+    'POSITION',
     1,
     previousState
   );

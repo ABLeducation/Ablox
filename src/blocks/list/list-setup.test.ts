@@ -1,17 +1,17 @@
-import "jest";
-import "../../core/blockly/blocks";
-import type { Workspace } from "blockly";
-import _ from "lodash";
+import 'jest';
+import '../../core/blockly/blocks';
+import type { Workspace } from 'blockly';
 import {
   createArduinoAndWorkSpace,
   createListSetupBlock,
   createTestEvent,
-} from "../../tests/tests.helper";
-import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import type { Variable } from "../../core/frames/arduino.frame";
+} from '../../tests/tests.helper';
+import { VariableTypes } from '../../core/blockly/dto/variable.type';
+import { eventToFrameFactory } from '../../core/frames/event-to-frame.factory';
+import type { Variable } from '../../core/frames/arduino.frame';
+import { objectKeys } from '../../help/objectKeys';
 
-describe("list  factories", () => {
+describe('list  factories', () => {
   let workspace: Workspace;
 
   afterEach(() => {
@@ -22,16 +22,16 @@ describe("list  factories", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("should be able generate state for list create block", () => {
+  test('should be able generate state for list create block', () => {
     const numListBlock = createListSetupBlock(
       workspace,
-      "nums",
+      'nums',
       VariableTypes.LIST_NUMBER,
       10
     );
-    createListSetupBlock(workspace, "texts", VariableTypes.LIST_STRING, 8);
-    createListSetupBlock(workspace, "bools", VariableTypes.LIST_BOOLEAN, 6);
-    createListSetupBlock(workspace, "colors", VariableTypes.LIST_COLOUR, 4);
+    createListSetupBlock(workspace, 'texts', VariableTypes.LIST_STRING, 8);
+    createListSetupBlock(workspace, 'bools', VariableTypes.LIST_BOOLEAN, 6);
+    createListSetupBlock(workspace, 'colors', VariableTypes.LIST_COLOUR, 4);
 
     const event = createTestEvent(numListBlock.id);
 
@@ -46,31 +46,31 @@ describe("list  factories", () => {
       'Creating a color list variable named "colors" that stores 4 items.',
     ].sort();
     expect(actualExplanation).toEqual(expectedExplanations);
-    expect(_.keys(state1.variables).length).toBe(1);
-    expect(_.keys(state2.variables).length).toBe(2);
-    expect(_.keys(state3.variables).length).toBe(3);
-    expect(_.keys(state4.variables).length).toBe(4);
+    expect(objectKeys(state1.variables).length).toBe(1);
+    expect(objectKeys(state2.variables).length).toBe(2);
+    expect(objectKeys(state3.variables).length).toBe(3);
+    expect(objectKeys(state4.variables).length).toBe(4);
 
     verifyListSetupVariable(
-      "nums",
+      'nums',
       VariableTypes.LIST_NUMBER,
       10,
       state4.variables
     );
     verifyListSetupVariable(
-      "texts",
+      'texts',
       VariableTypes.LIST_STRING,
       8,
       state4.variables
     );
     verifyListSetupVariable(
-      "bools",
+      'bools',
       VariableTypes.LIST_BOOLEAN,
       6,
       state4.variables
     );
     verifyListSetupVariable(
-      "colors",
+      'colors',
       VariableTypes.LIST_COLOUR,
       4,
       state4.variables

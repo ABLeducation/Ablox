@@ -1,10 +1,10 @@
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
-import _ from "lodash";
-import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
-import type { BluetoothSensor, BluetoothState } from "./state";
+import type { BlockToFrameTransformer } from '../../core/frames/transformer/block-to-frame.transformer';
+import { ArduinoComponentType } from '../../core/frames/arduino.frame';
+import { findFieldValue } from '../../core/blockly/helpers/block-data.helper';
+import { arduinoFrameByComponent } from '../../core/frames/transformer/frame-transformer.helpers';
+import { getInputValue } from '../../core/frames/transformer/block-to-value.factories';
+import type { BluetoothSensor, BluetoothState } from './state';
+import { cloneDeep } from '../../help/clone';
 
 export const bluetoothSetup: BlockToFrameTransformer = (
   blocks,
@@ -19,11 +19,11 @@ export const bluetoothSetup: BlockToFrameTransformer = (
   const bluetoothComponent: BluetoothState = {
     pins: block.pins.sort(),
     type: ArduinoComponentType.BLUE_TOOTH,
-    rxPin: findFieldValue(block, "PIN_RX"),
-    txPin: findFieldValue(block, "PIN_TX"),
+    rxPin: findFieldValue(block, 'PIN_RX'),
+    txPin: findFieldValue(block, 'PIN_TX'),
     hasMessage: btSensor.receiving_message,
     message: btSensor.message,
-    sendMessage: "",
+    sendMessage: '',
   };
 
   return [
@@ -32,7 +32,7 @@ export const bluetoothSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       bluetoothComponent,
-      "Setting up Bluetooth.",
+      'Setting up Bluetooth.',
       previousState
     ),
   ];
@@ -50,14 +50,14 @@ export const bluetoothMessage: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    "MESSAGE",
-    "",
+    'MESSAGE',
+    '',
     previousState
   );
   const btComponent = previousState.components.find(
     (c) => c.type === ArduinoComponentType.BLUE_TOOTH
   ) as BluetoothState;
-  const newComponent = _.cloneDeep(btComponent);
+  const newComponent = cloneDeep<BluetoothState>(btComponent);
   newComponent.sendMessage = message;
 
   return [

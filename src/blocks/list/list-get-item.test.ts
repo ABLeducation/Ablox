@@ -1,6 +1,6 @@
-import "jest";
-import "../../core/blockly/blocks";
-import "../../tests/fake-block";
+import 'jest';
+import '../../core/blockly/blocks';
+import '../../tests/fake-block';
 
 import {
   createValueBlock,
@@ -9,15 +9,15 @@ import {
   createSetListBlock,
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../tests/tests.helper";
-import type { Color } from "../../core/frames/arduino.frame";
-import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import type { Workspace, BlockSvg } from "blockly";
-import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
-import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import _ from "lodash";
+} from '../../tests/tests.helper';
+import type { Color } from '../../core/frames/arduino.frame';
+import { VariableTypes } from '../../core/blockly/dto/variable.type';
+import type { Workspace, BlockSvg } from 'blockly';
+import { connectToArduinoBlock } from '../../core/blockly/helpers/block.helper';
+import { eventToFrameFactory } from '../../core/frames/event-to-frame.factory';
+import { objectKeys } from '../../help/objectKeys';
 
-describe("list get items value factories", () => {
+describe('list get items value factories', () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -27,10 +27,10 @@ describe("list get items value factories", () => {
 
   beforeEach(() => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
-    arduinoBlock.setFieldValue("1", "LOOP_TIMES");
+    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
   });
 
-  test("should be able to get items in a number list", () => {
+  test('should be able to get items in a number list', () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_NUMBER,
@@ -41,18 +41,18 @@ describe("list get items value factories", () => {
     );
   });
 
-  test("should be able to get items in a string list", () => {
+  test('should be able to get items in a string list', () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_STRING,
       VariableTypes.STRING,
-      "",
-      "tim",
-      "amy"
+      '',
+      'tim',
+      'amy'
     );
   });
 
-  test("should be able to get items in a booleans list", () => {
+  test('should be able to get items in a booleans list', () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_BOOLEAN,
@@ -63,7 +63,7 @@ describe("list get items value factories", () => {
     );
   });
 
-  test("should be able to get items in a colours list", () => {
+  test('should be able to get items in a colours list', () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_COLOUR,
@@ -83,8 +83,8 @@ const testGetItemsInList = (
   valueBlock1Value: string | number | boolean | Color,
   valueBlock3Value: string | number | boolean | Color
 ) => {
-  const listBlockSetup = createListSetupBlock(workspace, "list", type, 3);
-  const listVariableId = listBlockSetup.getFieldValue("VAR");
+  const listBlockSetup = createListSetupBlock(workspace, 'list', type, 3);
+  const listVariableId = listBlockSetup.getFieldValue('VAR');
   const valueBlock1 = createValueBlock(
     workspace,
     valueBlockType,
@@ -96,15 +96,15 @@ const testGetItemsInList = (
     valueBlock3Value
   );
 
-  const numberBlock1 = workspace.newBlock("math_number") as BlockSvg;
-  numberBlock1.setFieldValue("1", "NUM");
+  const numberBlock1 = workspace.newBlock('math_number') as BlockSvg;
+  numberBlock1.setFieldValue('1', 'NUM');
 
-  const numberBlock3 = workspace.newBlock("math_number") as BlockSvg;
-  numberBlock3.setFieldValue("3", "NUM");
+  const numberBlock3 = workspace.newBlock('math_number') as BlockSvg;
+  numberBlock3.setFieldValue('3', 'NUM');
 
   const listSetPosition1 = createSetListBlock(
     workspace,
-    listBlockSetup.getFieldValue("VAR"),
+    listBlockSetup.getFieldValue('VAR'),
     type,
     numberBlock1,
     valueBlock1
@@ -112,7 +112,7 @@ const testGetItemsInList = (
 
   const listSetPosition2 = createSetListBlock(
     workspace,
-    listBlockSetup.getFieldValue("VAR"),
+    listBlockSetup.getFieldValue('VAR'),
     type,
     numberBlock3,
     valueBlock2
@@ -203,32 +203,32 @@ const testGetItemsInList = (
   ] = eventToFrameFactory(event).frames;
 
   // Testing variables are not being creating
-  expect(_.keys(state1.variables).length).toBe(1);
-  expect(_.keys(state2.variables).length).toBe(1);
+  expect(objectKeys(state1.variables).length).toBe(1);
+  expect(objectKeys(state2.variables).length).toBe(1);
 
   // Testing that a negative blocks sets
-  expect(state4.variables["var1_-1"].value).toEqual(valueBlock1Value);
-  expect(_.keys(state4.variables).length).toBe(2);
+  expect(state4.variables['var1_-1'].value).toEqual(valueBlock1Value);
+  expect(objectKeys(state4.variables).length).toBe(2);
 
   // testing that 0 returns first element
-  expect(state5.variables["var1_0"].value).toEqual(valueBlock1Value);
-  expect(_.keys(state5.variables).length).toBe(3);
+  expect(state5.variables['var1_0'].value).toEqual(valueBlock1Value);
+  expect(objectKeys(state5.variables).length).toBe(3);
 
   // testing 1 returns the first element
-  expect(state6.variables["var1_1"].value).toEqual(valueBlock1Value);
-  expect(_.keys(state6.variables).length).toBe(4);
+  expect(state6.variables['var1_1'].value).toEqual(valueBlock1Value);
+  expect(objectKeys(state6.variables).length).toBe(4);
 
   // testing 2 returns the second element
-  expect(state7.variables["var1_2"].value).toBeNull();
-  expect(_.keys(state7.variables).length).toBe(5);
+  expect(state7.variables['var1_2'].value).toBeNull();
+  expect(objectKeys(state7.variables).length).toBe(5);
 
   // Testing if no element is the stop that it will return null
-  expect(state8.variables["var1_3"].value).toEqual(valueBlock3Value);
-  expect(_.keys(state8.variables).length).toBe(6);
+  expect(state8.variables['var1_3'].value).toEqual(valueBlock3Value);
+  expect(objectKeys(state8.variables).length).toBe(6);
 
   // Testing if the number is out of range will use the last element which is not set so it should be null
-  expect(state9.variables["var1_20"].value).toEqual(valueBlock3Value);
-  expect(_.keys(state9.variables).length).toBe(7);
+  expect(state9.variables['var1_20'].value).toEqual(valueBlock3Value);
+  expect(objectKeys(state9.variables).length).toBe(7);
 };
 
 const createSetVariableBlockWithListItemAttached = (
@@ -240,7 +240,7 @@ const createSetVariableBlockWithListItemAttached = (
 ) => {
   const variableBlock = createSetVariableBlockWithValue(
     workspace,
-    "var1_" + position,
+    'var1_' + position,
     type,
     defaultValue
   );
@@ -252,10 +252,10 @@ const createSetVariableBlockWithListItemAttached = (
     position
   );
 
-  variableBlock.getInput("VALUE").connection.targetBlock().dispose(true);
+  variableBlock.getInput('VALUE').connection.targetBlock().dispose(true);
 
   variableBlock
-    .getInput("VALUE")
+    .getInput('VALUE')
     .connection.connect(getItemInListBlock.outputConnection);
 
   return variableBlock;
@@ -268,13 +268,13 @@ const createGetListItemBlock = (
   position: number
 ) => {
   const block = workspace.newBlock(toArrayBlockType(type));
-  block.setFieldValue(listVariableId, "VAR");
+  block.setFieldValue(listVariableId, 'VAR');
   const positionBlock = createValueBlock(
     workspace,
     VariableTypes.NUMBER,
     position
   );
-  block.getInput("POSITION").connection.connect(positionBlock.outputConnection);
+  block.getInput('POSITION').connection.connect(positionBlock.outputConnection);
 
   return block;
 };
@@ -282,12 +282,12 @@ const createGetListItemBlock = (
 const toArrayBlockType = (type: VariableTypes) => {
   switch (type) {
     case VariableTypes.COLOUR:
-      return "get_colour_from_list";
+      return 'get_colour_from_list';
     case VariableTypes.BOOLEAN:
-      return "get_boolean_from_list";
+      return 'get_boolean_from_list';
     case VariableTypes.NUMBER:
-      return "get_number_from_list";
+      return 'get_number_from_list';
     case VariableTypes.STRING:
-      return "get_string_from_list";
+      return 'get_string_from_list';
   }
 };
