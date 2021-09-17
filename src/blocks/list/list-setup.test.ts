@@ -10,6 +10,7 @@ import { VariableTypes } from '../../core/blockly/dto/variable.type';
 import { eventToFrameFactory } from '../../core/frames/event-to-frame.factory';
 import type { Variable } from '../../core/frames/arduino.frame';
 import { objectKeys } from '../../help/objectKeys';
+import { range } from '../../help/number';
 
 describe('list  factories', () => {
   let workspace: Workspace;
@@ -87,6 +88,6 @@ describe('list  factories', () => {
     expect(variable.type).toBe(type);
     expect(variable.name).toBe(name);
     expect(variable.id).toBeDefined();
-    expect(variable.value).toEqual([..._.range(0, size).map(() => null)]);
+    expect(variable.value).toEqual([...range(0, size).map(() => null)]);
   };
 });
