@@ -674,7 +674,7 @@ class SerialPort extends EventEmitter {
       .then(serialPort => {
         this.port = serialPort;
         if (this.isOpen) return;
-        return this.port.open({ baudRate: this.baudRate || 57600, baudrate: this.baudRate || 57600 });
+        return this.port.open({ baudRate: this.baudRate || 57600 });
       })
       .then(() => this.writer = this.port.writable.getWriter())
       .then(() => this.reader = this.port.readable.getReader())

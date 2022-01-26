@@ -5,7 +5,7 @@
 
   import { upload } from '../../../core/serial/upload';
 
-  import { afterUpdate } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { getBoard } from '../../../core/microcontroller/selectBoard';
   import { onConfirm, onErrorMessage, onSuccess } from '../../../help/alerts';
   import { workspaceToXML } from '../../../core/blockly/helpers/workspace.helper';
@@ -35,6 +35,10 @@
 
   // means that we already have seen the message
   let alreadyShownDebugMessage = false;
+
+  let NavSerial;
+
+  let AvrgirlArduino;
 
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
@@ -95,8 +99,9 @@
     }
     arduinoStore.set(PortState.OPENNING);
     const board = getBoard(boardType);
+
     arduionMessageStore
-      .connect(board.serial_baud_rate)
+      .connect(new NavSerial(board.serial_baud_rate))
       .then(() => {
         arduinoStore.set(PortState.OPEN);
       })
@@ -128,18 +133,14 @@
       return;
     }
 
-    if (arduinoStatus !== PortState.CLOSE) {
+    if (arduinoStatus !== PortState.OPEN) {
       return;
     }
     arduinoStore.set(PortState.UPLOADING);
     try {
-      const avrgirl = new AvrgirlArduino({
-        board: boardType,
-        debug: true,
-      });
-
-      await upload(code, avrgirl, boardType);
+      await upload(code, boardType, arduionMessageStore.getSerialPort());
       onSuccess('Your code is uploaded!! :)');
+      arduinoStore.set(PortState.OPEN);
     } catch (e) {
       if (e.message.toLowerCase() === 'no port selected by the user.') {
         arduinoStore.set(PortState.CLOSE);
@@ -176,6 +177,10 @@
   function toggleAutoScroll() {
     autoScroll = !autoScroll;
   }
+
+  onMount(async () => {
+    NavSerial = (await import('../../../core/serial/navserial')).default;
+  });
 </script>
 
 <section bind:this={messagesEl} id="messages">
@@ -215,7 +220,7 @@
     />
   </button>
 
-  <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
+  <button disabled={!(arduinoStatus === PortState.OPEN)} on:click={uploadCode}>
     <i class="fa {uploadingClass}" />
   </button>
   <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>

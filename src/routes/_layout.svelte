@@ -203,16 +203,8 @@
       return;
     });
   });
-
-  async function connect() {
-    const NavSerial = (await import('../core/serial/navserial')).default;
-
-    (window as any).testSerial = new NavSerial();
-    await (window as any).testSerial.requestDevice();
-  }
 </script>
 
-<button on:click={connect}>Connect</button>
 <Nav {segment} />
 <svelte:body on:mouseup={stopResize} />
 <main

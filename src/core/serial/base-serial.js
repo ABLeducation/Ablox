@@ -22,11 +22,11 @@ const signalMap = {
 };
 
 class BaseSerial extends EventEmitter {
-  constructor() {
+  constructor(baudRate) {
     super();
     this.requestRequired = false;
     this.mute = false;
-    this.baud = Number(window.localStorage.currentBaudRate) || 115200;
+    this.baud = baudRate;
     this.lastBaud = 115200;
     this.devices = [];
     this.currentDevice = null;

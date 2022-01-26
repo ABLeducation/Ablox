@@ -1,62 +1,44 @@
-import { writable } from "svelte/store";
-import { wait } from "../helpers/wait";
-import { SerialPort } from "../core/serial/avrgirl-serial";
+import { writable } from 'svelte/store';
+
 export interface ArduinoMessage {
-  type: "Arduino" | "Computer";
+  type: 'Arduino' | 'Computer';
   message: string;
   id: string;
   time: string;
 }
 
-let serialPort: SerialPort;
+let serialPort: any;
 const arduinoMessageStore = writable<ArduinoMessage>(undefined);
 
-const onMessage = (message: string) => {
-  arduinoMessageStore.set({
-    message,
-    type: "Arduino",
-    id: new Date().getTime() + "_" + Math.random().toString(),
-    time: new Date().toLocaleTimeString(),
-  });
-  wait(20);
-};
-
-const connect = async (baudRate) => {
-  serialPort = new SerialPort(
-    {
-      requestOptions: {
-        // Filter on devices with the Arduino USB vendor ID.
-        // filters: [{ usbVendorId: 0x2341 }], // todo mega arduino
-      },
-      baudRate,
-    },
-    onMessage
-  );
-  return new Promise((res, rej) => {
-    serialPort.open((err) => {
-      console.log(err);
-      if (!err) {
-        res(undefined);
-        return;
-      }
-      rej(err);
+const connect = async (navSerialPort) => {
+  serialPort = navSerialPort;
+  serialPort.on('data', (message: string) => {
+    arduinoMessageStore.set({
+      message,
+      type: 'Arduino',
+      id: new Date().getTime() + '_' + Math.random().toString(),
+      time: new Date().toLocaleTimeString(),
     });
   });
 };
 
 const closePort = async () => {
-  await serialPort.close((info) => console.log("closed", info));
+  await serialPort.close();
+};
+
+const getSerialPort = () => {
+  return serialPort;
 };
 
 const sendMessage = async (message: string) => {
-  await serialPort.write(message, (err) => {
+  await serialPort.write(message, null, (err?: any) => {
     if (err) {
-      console.log(err, "sendmessage");
+      console.log(err, 'sendmessage');
     }
     arduinoMessageStore.set({
       message,
-      type: "Computer",
-      id: new Date().getTime() + "_" + Math.random().toString(),
+      type: 'Computer',
+      id: new Date().getTime() + '_' + Math.random().toString(),
       time: new Date().toLocaleTimeString(),
     });
   });
@@ -67,4 +49,5 @@ export default {
   connect,
   closePort,
   sendMessage,
+  getSerialPort,
 };

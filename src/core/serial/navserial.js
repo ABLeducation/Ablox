@@ -2,13 +2,11 @@
 import { BrowserSerialPort } from './browser-serial';
 import BaseSerial from './base-serial';
 
-const { serial } = navigator;
-
 // eslint-disable-next-line no-console
 console.log('using navserial');
 class NavSerial extends BaseSerial {
-  constructor() {
-    super();
+  constructor(buadRate) {
+    super(buadRate);
     this.requestRequired = true;
     this.devices = JSON.parse(localStorage.portNames || '[]');
     this._currentDevice = null;
@@ -47,7 +45,7 @@ class NavSerial extends BaseSerial {
   }
 
   async requestDevice() {
-    const device = await serial.requestPort({ classCode: 2 });
+    const device = await navigator.serial.requestPort({ classCode: 2 });
     this.setCurrentDevice(device);
     // if (!device.id) device.id = uuid4();
     // if (await this.getDeviceName(device.id)) {
@@ -106,7 +104,7 @@ class NavSerial extends BaseSerial {
       window.localStorage.lastNavSerialPort || '{}'
     );
     if (!usbVendorId || !usbProductId) return;
-    const devices = await serial.getPorts();
+    const devices = await navigator.serial.getPorts();
     const device = devices.find((d) => {
       const info = d.getInfo();
       return (
