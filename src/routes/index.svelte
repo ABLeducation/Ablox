@@ -20,5 +20,6 @@
   .slot-wrapper {
     height: 100%;
     width: 100%;
+    background-color: #AFE1AF;
   }
 </style>
