@@ -189,9 +189,6 @@
     <a href="/settings" class:active={segment === 'settings'}>
       <i class="fa fa-gears" />
     </a>
-    <a href="/login" class:active={segment === 'login'}>
-      <i class="fa fa-sign-in" />
-    </a>
   {/if}
 </nav>
 {#if showSaveSuccess}
