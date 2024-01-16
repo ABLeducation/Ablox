@@ -4,49 +4,49 @@ import type { BlocklyThemeOptions } from 'blockly';
 export const theme: BlocklyThemeOptions = {
   blockStyles: {
     logic_blocks: {
-      colourPrimary: COLOR_THEME.CONTROL,
+      colourPrimary: #00FFFF,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
       hat: '',
     },
     loop_blocks: {
-      colourPrimary: COLOR_THEME.CONTROL,
+      colourPrimary: #00A36C,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
       hat: '',
     },
     procedure_blocks: {
-      colourPrimary: COLOR_THEME.CONTROL,
+      colourPrimary: #FFBF00,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
       hat: '',
     },
     math_blocks: {
-      colourPrimary: COLOR_THEME.VALUES,
+      colourPrimary: 	#DE3163,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
       hat: '',
     },
     text_blocks: {
-      colourPrimary: COLOR_THEME.VALUES,
+      colourPrimary: #5D3FD3,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
       hat: '',
     },
     colour_blocks: {
-      colourPrimary: COLOR_THEME.VALUES,
+      colourPrimary: #FAFA33,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
       hat: '',
     },
     variable_blocks: {
-      colourPrimary: COLOR_THEME.DATA,
+      colourPrimary: #93C572,
       colourSecondary: COLOR_THEME.DATA,
       colourTertiary: COLOR_THEME.DATA,
       hat: '',
     },
     list_blocks: {
-      colourPrimary: COLOR_THEME.DATA,
+      colourPrimary: #FFFF00,
       colourSecondary: COLOR_THEME.DATA,
       colourTertiary: COLOR_THEME.DATA,
       hat: '',
