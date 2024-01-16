@@ -3,7 +3,7 @@ export enum COLOR_THEME {
   ARDUINO_START_BLOCK = '#0000FF',
   COMPONENTS = '#512c62',
   ARDUINO = '#008000',
-  DATA = '#ffaac3',
-  VALUES = '#505bda',
-  CONTROL = '#b063c5',
+  DATA = '#FF5733',
+  VALUES = '#FF5733',
+  CONTROL = '#FF00FF',
 }
