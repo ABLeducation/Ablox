@@ -4,7 +4,7 @@ import type { BlocklyThemeOptions } from 'blockly';
 export const theme: BlocklyThemeOptions = {
   blockStyles: {
     logic_blocks: {
-      colourPrimary: #00FFFF,
+      colourPrimary: COLOR_THEME.CONTRO,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
       hat: '',
