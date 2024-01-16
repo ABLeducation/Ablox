@@ -120,7 +120,7 @@
 <style>
   main {
     height: 100%;
-    background-color: #eff0f1;
+  
   }
 
   #bottom {
