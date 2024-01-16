@@ -154,7 +154,7 @@
   {#if !$authStore.isLoggedIn}
     <a href="/">
       <i class="/" />
-      <img src = "logoabl.png" width="100" height="50">
+      <img src = "logoabl.png" width="130" height="50">
     </a>
     <a href="/" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
