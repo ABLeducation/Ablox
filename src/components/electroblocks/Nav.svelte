@@ -152,14 +152,12 @@
   {/if}
 
   {#if !$authStore.isLoggedIn}
-img src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fableducation.com%2F&psig=AOvVaw2pxLTKxzduJONFvBqUXBmV&ust=1705485974238000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCODPscDU4YMDFQAAAAAdAAAAABAH">
     <a href="/" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
     </a>
-  <a href="/" class:active={isPathOnHomePage($page.path)}>
+    <a href="/" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
     </a>
-
     <a href="/code" class:active={$page.path.includes('code')}>
       <i class="fa fa-code" />
     </a>
