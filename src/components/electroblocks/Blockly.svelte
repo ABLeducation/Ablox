@@ -133,6 +133,5 @@
 <style>
   #blockly {
     height: 100%;
-background-color: #AFE1AF;
   }
 </style>
