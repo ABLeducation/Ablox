@@ -117,11 +117,7 @@
 
 <nav class:small={!$authStore.isLoggedIn}>
   {#if $authStore.isLoggedIn}
-    <img src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fableducation.com%2F&psig=AOvVaw2pxLTKxzduJONFvBqUXBmV&ust=1705485974238000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCODPscDU4YMDFQAAAAAdAAAAABAH">
     <a href="/{params}" class:active={isPathOnHomePage($page.path)}>
-      <i class="fa fa-home" />
-    </a>
- <a href="/{params}" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
     </a>
 
@@ -156,7 +152,11 @@
   {/if}
 
   {#if !$authStore.isLoggedIn}
+img src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fableducation.com%2F&psig=AOvVaw2pxLTKxzduJONFvBqUXBmV&ust=1705485974238000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCODPscDU4YMDFQAAAAAdAAAAABAH">
     <a href="/" class:active={isPathOnHomePage($page.path)}>
+      <i class="fa fa-home" />
+    </a>
+  <a href="/" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
     </a>
 
