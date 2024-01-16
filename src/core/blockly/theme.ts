@@ -22,7 +22,7 @@ export const theme: BlocklyThemeOptions = {
       hat: '',
     },
     math_blocks: {
-      colourPrimary: 	COLOR_THEME.CONTRO,
+      colourPrimary: COLOR_THEME.CONTRO,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
       hat: '',
