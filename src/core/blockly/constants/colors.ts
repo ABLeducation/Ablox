@@ -4,6 +4,6 @@ export enum COLOR_THEME {
   COMPONENTS = '#4c97ff',
   ARDUINO = '#9966ff',
   DATA = '#59c059',
-  VALUES = '#59c059',
+  VALUES = '#cf63cf',
   CONTROL = '#ffab19',
 }
