@@ -21,7 +21,7 @@
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
-  export let showLoopExecutionTimesArduinoStartBlock = true;
+  export let showLoopExecutionTimesArduinoStartBlock = false;
 
   // The elment that contains blockly
   let blocklyElement;
