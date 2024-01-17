@@ -99,7 +99,7 @@ const createBlockConfig = (): BlocklyOptions => {
     grid: {
       spacing: 20,
       length: 1,
-      colour: '#59c059',
+      colour: '#888',
       snap: false,
     },
     zoom: {
