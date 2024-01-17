@@ -6,4 +6,5 @@ export enum COLOR_THEME {
   DATA = '#cf63cf',
   VALUES = '#505bda',
   CONTROL = '#ffab19',
+   NONE = '#505bda',
 }
