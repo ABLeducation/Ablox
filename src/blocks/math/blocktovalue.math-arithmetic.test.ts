@@ -1,4 +1,5 @@
 import "jest";
+import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import "../../core/blockly/blocks";
 import {
   createArduinoAndWorkSpace,
