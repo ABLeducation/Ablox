@@ -18,8 +18,9 @@ Blockly['Arduino']['move_motor'] = function(block: Block) {
 
   Blockly['Arduino'].libraries_['include_motor_library'] =
     '#include <rds3.h>;\n';
-  Blockly['Arduino'].libraries_['include_motor_init_' + motorNumber] =
-    'rds3.Motor_Settings' + '();\n';
+  Blockly['Arduino'].setupCode_[
+    'digital_display_setup'
+  ] = `rds3.Motor_Settings();`;
 
   let code = 'rds3.motor_' + motorNumber + '.run(' + direction + ');\n';
   code += 'rds3.motor_' + motorNumber + '.setSpeed(' + speed + ');\n';
