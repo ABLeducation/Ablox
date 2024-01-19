@@ -22,7 +22,7 @@ Blockly['Arduino']['move_motor'] = function(block: Block) {
     'digital_display_setup'
   ] = `rds3.Motor_Settings();`;
 
-  let code = 'rds3.Motor_' + motorNumber + '(' + direction + , + speed + ');\n';
+  let code = 'rds3.Motor_' + motorNumber + '(' + direction, speed + ');\n';
 
   return code;
 };
