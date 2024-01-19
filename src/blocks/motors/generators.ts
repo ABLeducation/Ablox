@@ -8,7 +8,7 @@ Blockly['Arduino']['move_motor'] = function(block: Block) {
     Blockly['Arduino'].ORDER_ATOMIC
   );
 
-  const direction = block.getFieldValue('DIRECTION').toUpperCase();
+  const direction = block.getFieldValue('DIRECTION');
 
   const speed = Blockly['Arduino'].valueToCode(
     block,
