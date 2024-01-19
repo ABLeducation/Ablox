@@ -1,5 +1,6 @@
 import Blockly from 'blockly';
 import type { Block } from 'blockly';
+import 'rds3';
 
 Blockly['Arduino']['move_motor'] = function(block: Block) {
   const motorNumber = Blockly['Arduino'].valueToCode(
