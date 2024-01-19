@@ -2,10 +2,15 @@
 #define RDS3_h
 
 
-#include <inttypes.h>
-#include <Print.h>
-#include <Wire.h>
-#include "Arduino.h"
+Blockly['Arduino'].libraries_['include_motor_library'] =
+" #include <inttypes.h>;\n"
+Blockly['Arduino'].libraries_['include_motor_library'] =
+"#include <Print.h>;\n"
+Blockly['Arduino'].libraries_['include_motor_library'] =
+"#include <Wire.h>;\n"
+Blockly['Arduino'].libraries_['include_motor_library'] =
+"#include "Arduino.h"\n';"
+
 
 enum motor_direction{Clockwise=0, Anticlockwise=1};
 enum sensor_type{Analog_IR=0, Ultrasonic=1, Temperature=2, Light=3, Touch=4, Sound=5};
