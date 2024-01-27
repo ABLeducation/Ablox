@@ -28,8 +28,8 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_dropdown",
         name: "DIRECTION",
         options: [
-          ["Anticlockwise", "Anticlockwise"],
-          ["Clockwise", "Clockwise"],
+          ["Forward", "FORWARD"],
+          ["Backward", "BACKWARD"],
         ],
       },
       {
