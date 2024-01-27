@@ -13,7 +13,7 @@ Blockly.defineBlocksWithJsonArray([
       },
     ],
     output: "Number",
-    colour: "#59c059",
+    colour: COLOR_THEME.VALUES,
     tooltip: "",
     helpUrl: "",
   },
