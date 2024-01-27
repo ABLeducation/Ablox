@@ -2,7 +2,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `
 <category name="Math" colour="${COLOR_THEME.VALUES}">
-     <block type="math_number" style="color: red;">
+     <block type="math_number">
        <field name="NUM">123</field>
      </block>
      <block type="math_number_property">
