@@ -21,7 +21,7 @@ Blockly['Arduino']['move_motor'] = function(block: Block) {
   Blockly['Arduino'].libraries_['include_motor_init_' + motorNumber] =
     'AF_DCMotor motor_' + motorNumber + '(' + motorNumber + ');\n';
 
-  let code = 'motor_' + motorNumber + '.run("' + direction + '");\n';
+  let code = 'motor_' + motorNumber + '.run(' + direction + ');\n';
   code += 'motor_' + motorNumber + '.setSpeed(' + speed + ');\n';
 
   return code;
