@@ -14,12 +14,12 @@ Blockly.Blocks["digital_display_setup"] = {
       )
       .appendField("Digital Display");
     this.appendDummyInput()
-      .appendField("DIO Pin# ")
+      .appendField("CLK Pin# ")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "DIO_PIN"
       )
-      .appendField("CLK Pin# ")
+      .appendField("DIO Pin# ")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "CLK_PIN"
